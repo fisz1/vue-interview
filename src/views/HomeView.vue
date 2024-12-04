@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <BookList @details="updateDetails" />
+    <BookDetails :activeBook="activeBook" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import { defineComponent, ref } from "vue";
+import BookDetails from "@/components/BookDetails.vue";
+import BookList from "@/components/BookList.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
-    HelloWorld,
+    BookDetails,
+    BookList,
+  },
+  setup() {
+    const activeBook = ref(-1);
+
+    const updateDetails = (index: number) => {
+      activeBook.value = index;
+    };
+
+    return {
+      activeBook,
+      updateDetails,
+    };
   },
 });
 </script>
